@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: ecs-client-svc
+spec:
+  selector:
+    app: ecs-client
+  ports:
+    - name: ecs-client
+      protocol: TCP
+      port: 8000
+      targetPort: 80

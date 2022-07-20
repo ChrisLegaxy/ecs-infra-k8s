@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ecs-server-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ecs-server
+  template:
+    metadata:
+      labels:
+        app: ecs-server
+    spec:
+      containers:
+        - name: ecs-server
+          image: unknown/ecs-server
+          env:
+            - name: DATABASE_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: ecs-pg-db-config-map
+                  key: db-host
+            - name: DATABASE_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: ecs-pg-db-secret
+                  key: db-name
+            - name: DATABASE_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: ecs-pg-db-secret
+                  key: db-user
+            - name: DATABASE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: ecs-pg-db-secret
+                  key: db-password
+            - name: TELEBOT_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: ecs-telebot
+                  key: token

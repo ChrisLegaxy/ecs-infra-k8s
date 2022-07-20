@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ecs-pg-db-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ecs-pg-db
+  template:
+    metadata:
+      labels:
+        app: ecs-pg-db
+    spec:
+      containers:
+        - name: ecs-pg-db
+          image: postgres:12-alpine
+          env:
+            - name: POSTGRES_DB
+              valueFrom:
+                secretKeyRef:
+                  name: ecs-pg-db-secret
+                  key: db-name
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: ecs-pg-db-secret
+                  key: db-user
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: ecs-pg-db-secret
+                  key: db-password
