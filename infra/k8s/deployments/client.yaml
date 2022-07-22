@@ -1,6 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  namespace: ecs
   name: ecs-client-depl
 spec:
   replicas: 1
@@ -14,4 +15,4 @@ spec:
     spec:
       containers:
         - name: ecs-client
-          image: unknown/ecs-client
+          image: chrislegaxy/ecs-client

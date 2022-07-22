@@ -1,6 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
+  namespace: ecs
   name: ecs-pg-db-config-map
 data:
   db-host: ecs-pg-db-svc

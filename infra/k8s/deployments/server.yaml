@@ -1,9 +1,10 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  namespace: ecs
   name: ecs-server-depl
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: ecs-server
@@ -14,7 +15,7 @@ spec:
     spec:
       containers:
         - name: ecs-server
-          image: unknown/ecs-server
+          image: chrislegaxy/ecs-server
           env:
             - name: DATABASE_HOST
               valueFrom:
